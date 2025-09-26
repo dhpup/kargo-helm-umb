@@ -28,7 +28,7 @@ spec:
     config:
       path: ./out/charts/guestbook
       valuesFiles:
-      - ./out/env/${{ vars.envPath }}/values.yaml
+      - ./out/${{ vars.envPath }}/values.yaml
       outPath: ./out/manifests.yaml
       releaseName: guestbook
   - uses: git-commit
