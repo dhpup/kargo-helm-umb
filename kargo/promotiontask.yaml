@@ -8,7 +8,7 @@ spec:
   - name: image
     value: ghcr.io/akuity/guestbook
   - name: repoURL
-    value: https://github.com/akuity/kargo-helm-umb.git
+    value: https://github.com/dhpup/kargo-helm-umb.git
   - name: branch
     value: main
   - name: envPath
