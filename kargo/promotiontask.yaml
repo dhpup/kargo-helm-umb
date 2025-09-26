@@ -30,6 +30,7 @@ spec:
       valuesFiles:
       - ./out/env/${{ vars.envPath }}/values.yaml
       outPath: ./out/manifests.yaml
+      releaseName: guestbook
   - uses: git-commit
     as: commit
     config:
