@@ -1,0 +1,14 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kargo-helm-umb
+spec:
+  project: kargo-helm-umb
+  source:
+    repoURL: https://github.com/dhpup/kargo-helm-umb.git
+    path: kargo
+  destination:
+    name: kargo1
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true

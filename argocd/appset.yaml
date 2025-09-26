@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: kargo-helm-umb-gb
+  namespace: argocd
+spec:
+  generators:
+  - git:
+      repoURL: https://github.com/dhpup/kargo-helm-umb.git
+      revision: HEAD
+      directories:
+      - path: env/*
+  template:
+    metadata:
+      name: kargo-helm-umb-{{path.basename}}
+      annotations:
+        kargo.akuity.io/authorized-stage: kargo-helm-umb:{{path.basename}}
+    spec:
+      destination:
+        namespace: kargo-helm-umb-{{path.basename}}
+        name: mac2
+      project: kargo-helm-umb
+      source:
+        path: charts/guestbook
+        repoURL: https://github.com/dhpup/kargo-helm-umb.git
+        helm:
+          valueFiles:
+          - "/env/{{path.basename}}/values.yaml"
+          - "/env/{{path.basename}}/feature-flags.yaml"
