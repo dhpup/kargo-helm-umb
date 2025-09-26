@@ -1,0 +1,28 @@
+# apiVersion: kargo.akuity.io/v1alpha1
+# kind: Warehouse
+# metadata:
+#   name: guestbook
+#   namespace: kargo-helm-umb
+# spec:
+#   shard: kargo-agent
+#   subscriptions:
+#   - image:
+#       repoURL: ghcr.io/dhpup/guestbook
+#       imageSelectionStrategy: SemVer
+
+# ---
+# apiVersion: kargo.akuity.io/v1alpha1
+# kind: Warehouse
+# metadata:
+#   name: features
+#   namespace: kargo-helm-umb
+# spec:
+#   shard: kargo-agent
+#   subscriptions:
+#   - git:
+#       branch: main
+#       commitSelectionStrategy: NewestFromBranch
+#       discoveryLimit: 20
+#       repoURL: https://github.com/dhpup/kargo-helm-umb.git
+#       includePaths:
+#       - base/feature-flags.yaml

@@ -2,28 +2,19 @@ apiVersion: kargo.akuity.io/v1alpha1
 kind: PromotionTask
 metadata:
   name: promote
-  namespace: kargo-helm-umb
+  namespace: kargo-helm
 spec:
   vars:
   - name: image
-    value: ghcr.io/dhpup/guestbook
+    value: ghcr.io/akuity/guestbook
   - name: repoURL
-    value: https://github.com/dhpup/kargo-helm-umb.git
+    value: https://github.com/akuity/kargo-helm-umb.git
   - name: branch
     value: main
   - name: envPath
   - name: argocdApp
 
   steps:
-  - uses: compose-output
-    as: tags
-    config:
-      repo2: ${{ vars.repoURL }}
-  - uses: compose-output
-    as: layer2
-    config:
-      layer2:
-        input: ${{ task.outputs.tags.config }}
   - uses: git-clone
     config:
       repoURL: ${{ vars.repoURL }}
@@ -32,17 +23,13 @@ spec:
         path: ./src
       - branch: ${{ vars.branch }}
         path: ./out
-  - uses: yaml-update
-    as: update-image
+  - uses: helm-template
+    as: render-charts
     config:
-      path: ./out/${{ vars.envPath }}/values.yaml
-      updates:
-      - key: image.tag
-        value: ${{ imageFrom( vars.image ).Tag }}
-  - uses: copy
-    config:
-      inPath: ./src/base/feature-flags.yaml
-      outPath: ./out/${{ vars.envPath }}/feature-flags.yaml
+      path: ./out/charts/guestbook
+      valuesFiles:
+      - ./out/env/${{ vars.envPath }}/values.yaml
+      outPath: ./out/manifests.yaml
   - uses: git-commit
     as: commit
     config:
