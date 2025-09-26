@@ -5,6 +5,5 @@ metadata:
   namespace: kargo-helm-umb
 spec:
   subscriptions:
-  - image:
-      repoURL: ghcr.io/akuity/guestbook
-      imageSelectionStrategy: SemVer
+  - git:
+      repoURL: https://github.com/dhpup/kargo-helm-umb
