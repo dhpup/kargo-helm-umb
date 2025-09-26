@@ -3,7 +3,7 @@ kind: Application
 metadata:
   name: kargo-helm-umb-aoa
 spec:
-  project: default
+  project: kargo-helm-umb
   syncPolicy:
     automated: {}
   source:
